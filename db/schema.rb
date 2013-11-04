@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131103213011) do
+ActiveRecord::Schema.define(version: 20131104194440) do
 
   create_table "subscriptions", force: true do |t|
     t.string   "bergcloud_subscription_id"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20131103213011) do
     t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "token"
   end
 
 end
