@@ -1,5 +1,9 @@
 class SubscriptionController < ApplicationController
+
+	skip_before_filter :verify_authenticity_token
+
   def create
+  
   	config = JSON.parse(params[:config])
     subscription_id = params[:subscription_id]
     endpoint = params[:endpoint]
@@ -12,25 +16,32 @@ class SubscriptionController < ApplicationController
     	return 400, "You did not post any config to validate"
 	end
 	
-	if user_settings['email'].nil? or user_settings['email']==""
+	if config['email'].nil? or config['email'].empty?
+	
     	response[:valid] = false
 		response[:errors].push('Please supply your email address to get started.')
+	
 	else
-		email = EmailVeracity::Address.new(user_settings['email'])
+	
+		email = EmailVeracity::Address.new('me+test@alexforey.com') #config['email'])
 		
 		unless email.valid?
 			response[:valid] = false
 			response[:errors].push('Please supply a valid email address.')
 		end
+	
 	end
 	
-	if response[:valid]?
+	if response[:valid] == true
 		
-		subscription = Subscription.find_or_initialize_by_email(user_settings['email'])
+		subscription = Subscription.find_or_initialize_by(:email => config['email'])
 		subscription.bergcloud_subscription_id = subscription_id
 		subscription.bergcloud_endpoint = endpoint
 		
-		subscription.save!
+		unless subscription.save
+			response[:valid] = false
+			response[:errors].push('There was a problem creating your subscription.')
+		end
 		
 	end
 	
