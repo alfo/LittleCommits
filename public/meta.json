@@ -3,7 +3,7 @@
     "publication_api_version":"1.0",
     "name": "Little Commits",
     "description": "Get a pushed print-out every time someone pushes to your repositories.",
-    "delivered_on": "occasion",
+    "delivered_on": "when someone pushes to one of your repositories",
     "delivery_type": "push",
     "send_timezone_info": false,
     "send_delivery_count": false,
