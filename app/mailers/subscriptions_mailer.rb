@@ -1,5 +1,5 @@
 class SubscriptionsMailer < ActionMailer::Base
-  default from: ENV['EMAIL_ADDRESS']
+  default from: "Little Commits <#{ENV['EMAIL_ADDRESS']}>"
   
   def new_subscription(subscription)
   	@subscription = subscription
