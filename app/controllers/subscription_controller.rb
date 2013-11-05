@@ -23,7 +23,7 @@ class SubscriptionController < ApplicationController
 	
 	else
 	
-		email = EmailVeracity::Address.new('me+test@alexforey.com') #config['email'])
+		email = EmailVeracity::Address.new(config['email'])
 		
 		unless email.valid?
 			response[:valid] = false

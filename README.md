@@ -1,28 +1,18 @@
-== README
+= LittleCommits
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is Little Commits, a push publication for the Little Printer. It has been updated from [this version](https://github.com/alfo/little-cpmmits-dpc) which uses the old Direct Print API, which is more suited to other uses.
 
-Things you may want to cover:
+== Functionality
 
-* Ruby version
+As I can't see an easy way to use both the push API and the `external_config` option, the one user config option is an email address. The subscription is created in the application when the user submits a valid email. An email is then sent to the user with their WebHook URL for use with GitHub. When a user unsubscribes, the app subscription is automatically deleted the next time a delivery would have been made.
 
-* System dependencies
+== Heroku Config
 
-* Configuration
+There are a number of sensitive pieces of information used in this project - BERGCloud API keys and email account details. They are stored in Heroku's config variables, and accessed like so: `ENV['ACCESS_TOKEN']` etc. The following are required for you to have a working local version:
 
-* Database creation
+* `CONSUMER_TOKEN`, `CONSUMER_SECRET`, `ACCESS_TOKEN`, `ACCESS_TOKEN_SECRET`, all from your publication's development page
+* `EMAIL_ADDRESS` and `EMAIL_PASSWORD` - GMail login credentials
 
-* Database initialization
+== Contributing
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Please feel free to contribute by forking and pull requesting - I haven't even been able to test this on a real Little Printer yet. I've deliberately included the Icon.psd so people can make suggestions for a better icon.

@@ -7,7 +7,6 @@ class SubscriptionsMailer < ActionMailer::Base
   	domain = "http://little-commits.herokuapp.com"
   	
   	@endpoint = domain + endpoint_path(:token => @subscription.token)
-  	@unsub_url = domain + unsubscribe_path(:token => @subscription.token)
   	
   	mail(:to => "#{@subscription.email}", :subject => "Little Commits Setup")
   end
