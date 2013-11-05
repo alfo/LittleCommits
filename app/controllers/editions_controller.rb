@@ -42,7 +42,7 @@ class EditionsController < ApplicationController
 		p endpoint = subscription.bergcloud_endpoint + "/publish"
 		
 		# Send the request
-		response = access_token.post(subscription.bergcloud_endpoint, html, "Content-Type" => "text/html; charset=utf-8")
+		response = access_token.post(endpoint, html, "Content-Type" => "text/html; charset=utf-8")
 		
 		p response.code
 		
