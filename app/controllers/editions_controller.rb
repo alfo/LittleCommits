@@ -36,8 +36,10 @@ class EditionsController < ApplicationController
 		html = ERB.new(erb).result(namespace.instance_eval { binding })
 		
 		# OAuth stuff
-		consumer = OAuth::Consumer.new(ENV['CONSUMER_TOKEN'], ENV['CONSUMER_SECRET'], {:site => "http://api.bergcloud.com"})
+		consumer = OAuth::Consumer.new(ENV['CONSUMER_TOKEN'], ENV['CONSUMER_SECRET'], {:site => "http://api.bergcloud.com/v1"})
 		access_token = OAuth::AccessToken.new(consumer, ENV['ACCESS_TOKEN'], ENV['ACCESS_TOKEN_SECRET'])
+		
+		p subscription.bergcloud_endpoint
 		
 		# Send the request
 		response = access_token.post(subscription.bergcloud_endpoint, html, "Content-Type" => "text/html; charset=utf-8")
