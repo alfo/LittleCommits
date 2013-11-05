@@ -23,7 +23,10 @@ class EditionsController < ApplicationController
 			:id => commit["id"],
 			:name => commit["author"]["name"],
 			:username => commit["author"]["username"],
-			:date => Time.parse(commit["timestamp"]).strftime('%l:%m:%S%P %Z %e/%m/%y')
+			:date => Time.parse(commit["timestamp"]).strftime('%l:%m:%S%P %Z %e/%m/%y'),
+			:modified => commit["modified"],
+			:added => commit["added"],
+			:removed => commit["removed"]
 		)
 		
 		# Read the view file into a variable
@@ -38,6 +41,8 @@ class EditionsController < ApplicationController
 		
 		# Send the request
 		response = access_token.post(subscription.bergcloud_endpoint, html, "Content-Type" => "text/html; charset=utf-8")
+		
+		p response.code
 		
 		if response.code == "410"
 			# The user has unsubscribed, so delete the local record of the subscription
