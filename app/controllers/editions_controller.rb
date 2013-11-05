@@ -2,11 +2,13 @@ require 'ostruct'
 
 class EditionsController < ApplicationController
 
-	skip_before_filter :verify_authenticity_token
+	include ActionView::Helpers::TextHelper
+	
+	skip_before_filter :verify_authenticity_token	
 
 	def create
 		
-		subscription = Subscription.where(:token => params[:token])
+		subscription = Subscription.find_by!(:token => params[:token])
 		
 		# Get info from POST params
 		push = JSON.parse(params[:payload])
@@ -17,7 +19,7 @@ class EditionsController < ApplicationController
 		
 		# Create a struct for the ERB parsing
 		namespace = OpenStruct.new(
-			:message => commit["message"],
+			:message => simple_format(commit["message"]),
 			:id => commit["id"],
 			:name => commit["author"]["name"],
 			:username => commit["author"]["username"],
@@ -31,8 +33,8 @@ class EditionsController < ApplicationController
 		html = ERB.new(erb).result(namespace.instance_eval { binding })
 		
 		# OAuth stuff
-		consumer = OAuth::Consumer.new(ENV['CONSUMER_TOKEN'], ENV['CONSUMER_SECRET'])
-		access_token = OAuth::AccessToken.new(consumer, ENV['ACCESS_TOKEN'], ENV['ACCESS_TOKEN_SECRET'], :site => "http://api.bergcloud.com")
+		consumer = OAuth::Consumer.new(ENV['CONSUMER_TOKEN'], ENV['CONSUMER_SECRET'], {:site => "http://api.bergcloud.com"})
+		access_token = OAuth::AccessToken.new(consumer, ENV['ACCESS_TOKEN'], ENV['ACCESS_TOKEN_SECRET'])
 		
 		# Send the request
 		response = access_token.post(subscription.bergcloud_endpoint, html, "Content-Type" => "text/html; charset=utf-8")
