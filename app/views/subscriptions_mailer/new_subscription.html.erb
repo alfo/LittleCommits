@@ -36,8 +36,10 @@
 				background: #E9E9E9;
 			}
 
-			blockquote {
+			.url {
 				margin-left: 20px;
+				color: #2B84FF;
+				font-style: italic;
 			}
 		</style>
 
@@ -50,7 +52,7 @@
 			<div class="body">
 				<p>Hey there!</p>
 				<p>Thanks for subscribing to Little Commits. Here is your special web-hook URL:</p>
-				<blockquote><p><%= @endpoint %></p></blockquote>
+				<p class="url"><%= @endpoint %></p>
 
 				<p>Simply go to the Service Hooks settings of the repository you want to receive print-outs from, and add the above as a WebHook URL.</p>
 
