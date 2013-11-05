@@ -48,4 +48,6 @@ class SubscriptionController < ApplicationController
 	render :json => response.to_json
 	
   end
+  
+
 end
