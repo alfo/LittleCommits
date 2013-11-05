@@ -4,7 +4,7 @@ class SubscriptionsMailer < ActionMailer::Base
   def new_subscription(subscription)
   	@subscription = subscription
   	
-  	@endpoint = endpoint_url(:token => @subscription.token)
+  	@endpoint = "http://little-commits.herokuapp.com" + endpoint_path(:token => @subscription.token)
   	
   	mail(:to => "#{@subscription.email}", :subject => "Little Commits Setup")
   end
