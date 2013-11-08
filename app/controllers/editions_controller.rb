@@ -40,7 +40,7 @@ class EditionsController < ApplicationController
 		access_token = OAuth::AccessToken.new(consumer, ENV['ACCESS_TOKEN'], ENV['ACCESS_TOKEN_SECRET'])
 		
 		# Send the request
-		response = access_token.post(subscription.bergcloud_endpoint + "/publish", html, "Content-Type" => "text/html; charset=utf-8")
+		response = access_token.post("http://api.bergcloud.com/v1/subscriptions/#{subscription.bergcloud_subscription_id}/publish", html, "Content-Type" => "text/html; charset=utf-8")
 		
 		p response.body
 		p response.code
